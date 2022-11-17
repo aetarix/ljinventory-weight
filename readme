@@ -1,0 +1,185 @@
+-- Simply replace the following functions within lj-inventory/client/main.
+-- Change "pr-cityjobs" to your skills system. Eg. "mz-skills", "b1-skills"
+
+```lua
+RegisterNetEvent('inventory:client:OpenInventory', function(PlayerAmmo, inventory, other)
+    -- SKILLS CHECK HERE
+    local lvl8 = false
+    local lvl7 = false
+    local lvl6 = false
+    local lvl5 = false
+    local lvl4 = false
+    local lvl3 = false
+    local lvl2 = false
+    local lvl1 = false
+    local lvl0 = false
+    exports["pr-cityjobs"]:CheckSkill("Strength", 2000, function(hasskill)
+        if hasskill then
+            lvl8 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 1250, function(hasskill)
+        if hasskill then
+            lvl7 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 750, function(hasskill)
+        if hasskill then
+            lvl6 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 400, function(hasskill)
+        if hasskill then
+            lvl5 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 200, function(hasskill)
+        if hasskill then
+            lvl4 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 100, function(hasskill)
+        if hasskill then
+            lvl3 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 50, function(hasskill)
+        if hasskill then
+            lvl2 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 25, function(hasskill)
+        if hasskill then
+            lvl1 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 0, function(hasskill)
+        if hasskill then
+            lvl0 = true
+        end
+    end)
+    if not IsEntityDead(PlayerPedId()) then
+        Wait(500)
+        if showBlur == true then
+            TriggerScreenblurFadeIn(1000)
+        end
+        SetNuiFocus(true, true)
+        if other then
+            currentOtherInventory = other.name
+        end
+        if lvl8 == true then
+            maxweight = 50000
+        elseif lvl7 == true then
+            maxweight = 47500
+        elseif lvl6 == true then
+            maxweight = 45000
+        elseif lvl5 == true then
+            maxweight = 42500
+        elseif lvl4 == true then
+            maxweight = 40000
+        elseif lvl3 == true then
+            maxweight = 35000
+        elseif lvl2 == true then
+            maxweight = 30000
+        elseif lvl1 == true then
+            maxweight = 25000
+        elseif lvl0 == true then
+            maxweight = 20000
+        end
+        SendNUIMessage({
+            action = "open",
+            inventory = inventory,
+            slots = MaxInventorySlots,
+            other = other,
+            Ammo = PlayerAmmo,
+            maxammo = Config.MaximumAmmoValues,
+            maxweight = maxweight,
+        })
+        inInventory = true
+    end
+end)
+
+RegisterNetEvent('inventory:client:UpdatePlayerInventory', function(isError)
+        -- SKILLS CHECK HERE
+    local lvl8 = false
+    local lvl7 = false
+    local lvl6 = false
+    local lvl5 = false
+    local lvl4 = false
+    local lvl3 = false
+    local lvl2 = false
+    local lvl1 = false
+    local lvl0 = false
+    exports["pr-cityjobs"]:CheckSkill("Strength", 2000, function(hasskill)
+        if hasskill then
+            lvl8 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 1250, function(hasskill)
+        if hasskill then
+            lvl7 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 750, function(hasskill)
+        if hasskill then
+            lvl6 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 400, function(hasskill)
+        if hasskill then
+            lvl5 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 200, function(hasskill)
+        if hasskill then
+            lvl4 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 100, function(hasskill)
+        if hasskill then
+            lvl3 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 50, function(hasskill)
+        if hasskill then
+            lvl2 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 25, function(hasskill)
+        if hasskill then
+            lvl1 = true
+        end
+    end)
+    exports["pr-cityjobs"]:CheckSkill("Strength", 0, function(hasskill)
+        if hasskill then
+            lvl0 = true
+        end
+    end)
+    if lvl8 == true then
+        maxweight = 50000
+    elseif lvl7 == true then
+        maxweight = 45000
+    elseif lvl6 == true then
+        maxweight = 40000
+    elseif lvl5 == true then
+        maxweight = 35000
+    elseif lvl4 == true then
+        maxweight = 30000
+    elseif lvl3 == true then
+        maxweight = 25000
+    elseif lvl2 == true then
+        maxweight = 22500
+    elseif lvl1 == true then
+        maxweight = 20000
+    elseif lvl0 == true then
+        maxweight = 17500
+    end
+    SendNUIMessage({
+        action = "update",
+        inventory = PlayerData.items,
+        maxweight = maxweight,
+        slots = MaxInventorySlots,
+        error = isError,
+    })
+end)
+```
